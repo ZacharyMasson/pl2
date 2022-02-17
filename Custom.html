@@ -15,83 +15,70 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.22/"></script>
   <script>
+  <script>
 
   require([
     "esri/config",
     "esri/Map",
+	"esri/layers/GeoJSONLayer"
     "esri/views/MapView",
 
-    "esri/Graphic",
-    "esri/layers/GraphicsLayer"
-
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
-
+    ], function(esriConfig,Map, GeoJSONLayer, MapView) {
   esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
+  const url = "https://github.com/ZacharyMasson/pl2/blob/main/MTL_TAN.geojson";  
+  const template = {
+    title: "{name}",
+    content: "{desc1}",
+    };
+ 
+  const renderer = {
+    type: "simple",
+    field: "id",
+    symbol: {
+      type: "simple-marker",
+      color: "orange",
+      outline: {
+        color: "white"
+      }
+    },
+    visualVariables: [
+      {
+        type: "size",
+        field: "id",
+        stops: [
+          {
+            value: 2.5,
+            size: "4px"
+          },
+          {
+            value: 8,
+            size: "40px"
+          }
+        ]
+       }
+     ]
+  };
+
+  const geojsonLayer = new GeoJSONLayer({
+    url: url,
+    popupTemplate: template,
+    renderer: renderer,
+    orderBy: {
+      field: "id"
+    }
+  });
 
   const map = new Map({
-    basemap: "arcgis-topographic" //Basemap layer service
+    basemap: "gray-vector",
+    layers: [geojsonLayer]
   });
 
   const view = new MapView({
-    map: map,
-    center: [-118.80500,34.02700], //Longitude, latitude
-    zoom: 13,
-    container: "viewDiv"
- });
-
- const graphicsLayer = new GraphicsLayer();
- map.add(graphicsLayer);
-
- const point = { //Create a point
-    type: "point",
-    longitude: -118.80657463861,
-    latitude: 34.0005930608889
- };
- const simpleMarkerSymbol = {
-    type: "simple-marker",
-    color: [226, 119, 40],  // Orange
-    outline: {
-        color: [255, 255, 255], // White
-        width: 1
-    }
- };
-
- const pointGraphic = new Graphic({
-    geometry: point,
-    symbol: simpleMarkerSymbol
- });
- graphicsLayer.add(pointGraphic);
-
-    // Create a line geometry
- const polyline = {
-    type: "polyline",
-    paths: [
-        [-118.821527826096, 34.0139576938577], //Longitude, latitude
-        [-118.814893761649, 34.0080602407843], //Longitude, latitude
-        [-118.808878330345, 34.0016642996246]  //Longitude, latitude
-    ]
- };
- const simpleLineSymbol = {
-    type: "line-3d",
-    symbolLayers: [{
-      type: "path",
-      profile: "quad",
-      material: {
-        color: [100, 100, 100]
-      },
-      width: 5, // the width in m
-      height: 30, // the height in m
-      anchor: "bottom", // the vertical anchor is set to the lowest point of the wall
-      profileRotation: "heading"
-    }]
-  }
-
- const polylineGraphic = new Graphic({
-    geometry: polyline,
-    symbol: simpleLineSymbol
- });
- graphicsLayer.add(polylineGraphic);
-
+    container: "viewDiv",
+    center: [-168, 46],
+    zoom: 2,
+    map: map
+  });
  });
 </script>
 </head>
