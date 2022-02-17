@@ -1,9 +1,14 @@
+<!-- Arcgis Online API for Javascript Tutorials -->
+<!-- Turorials followed 
+ BASICS: https://developers.arcgis.com/javascript/latest/get-started/
+ADD POINT LINE OR POLY: https://developers.arcgis.com/javascript/latest/add-a-point-line-and-polygon/-->
+<!--Not too many comments/ or any changes in this file because I strictly folllowed the tutorials-->
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>ArcGIS API for JavaScript Tutorials: Display a map</title>
-
+    <title>ArcGIS API for JavaScript Tutorials: Display a map with features</title>
+<!-- make map take up whole page-->
     <style>
       html,
       body,
@@ -14,13 +19,14 @@
         width: 100%;
       }
     </style>
-
+<!--link to the default esri styles and the javascript -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.22/"></script>
 
     <script>
+      <!--define required modules and the function to create
       require(["esri/config","esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
-        esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
+        esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc"; <!--API key-->
         const map = new Map({
           basemap: "arcgis-topographic" // Basemap layer service
         });
