@@ -85,16 +85,13 @@
             format: "geojson",
             starttime: "1905-01-01",
             endtime: new Date().toISOString().split("T")[0],
-            minlatitude: 24,
-            maxlatitude: 46,
-            minlongitude: 123,
-            maxlongitude: 145,
+      
             orderby: "magnitude",
             minmagnitude: 1,
             alertlevel: "red"
           },
           // only show earthquakes that mentions japan
-          definitionExpression: "place LIKE '%Japan'",
+          definitionExpression: "place LIKE '%Portugal'",
           effect: "bloom(2 1px 0)",
           title: "USGS Earthquakes",
           renderer: {
