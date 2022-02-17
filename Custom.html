@@ -17,19 +17,13 @@
   </style>
   <script type="text/javascript">
     require([
+    "esri/config",
     "esri/Map",
     "esri/views/MapView",
-    "esri/widgets/Home",
-    "esri/widgets/ScaleBar",
-    "esri/widgets/LayerList",
-    "esri/widgets/Legend",
-    "esri/widgets/Expand",
-    "esri/widgets/Compass",
-    "esri/geometry/Extent",
+ 
     "esri/layers/MapImageLayer"
     ], (
-    Map, MapView, Home, ScaleBar, LayerList, Legend,
-    Expand, Compass, Extent, MapImageLayer
+    esriConfig, Map, MapView, MapImageLayer
     ) => {
       const layer = new MapImageLayer({ url: "https://maps-cartes.ec.gc.ca/arcgis/rest/services/data/65658050-7a80-4da3-9a09-da137c203a34/MapServer" });
       const map = new Map({ layers: [layer] });
@@ -37,62 +31,10 @@
         container: "viewDiv",
         map: map
       });
-      const homeBtn = new Home({
-        view: view
-      });
-      const scaleBar = new ScaleBar({
-        view: view,
-        unit: "dual"
-      });
-      const layerList = new LayerList({
-        view: view
-      });
-      const legend = new Legend({
-        view: view
-      });
-      const layerListExpand = new Expand({
-        view: view,
-        content: layerList,
-        expanded: false,
-        expandTooltip: "Expand LayerList"
-      });
-      const legendExpand = new Expand({
-        view: view,
-        content: legend,
-        expandTooltip: "Expand Legend",
-        expanded: false
-      });
-      const compass = new Compass({
-        view: view,
-        visible: false
-      });
-      view.ui.add(homeBtn, "top-left");
-      view.ui.add(scaleBar, "bottom-right");
-      view.ui.add(layerListExpand, "top-right");
-      view.ui.add(legendExpand, "bottom-left");
-      view.ui.add(compass, "top-left");
-      layer.when(() => {
-        const initialExtent = Extent.fromJSON(layer.sourceJSON.initialExtent);
-        view.goTo(initialExtent);
-      });
-      // load the Compass only when the view is rotated
-      view.watch('rotation', function (rotation) {
-        if (rotation && !compass.visible) {
-          compass.visible = true;
-        }
-      });
     });
   </script>
 </head>
   <body>
-    <div class="grid-container">
-    <div class="item1">
-      <p>ArcGIS API for JavaScript: data/65658050-7a80-4da3-9a09-da137c203a34 (MapServer)</p>
-    </div>
-    <div class="item2">
-      <p>Built using the <a class="breadcrumb" href="https://developers.arcgis.com/javascript/" target="sdkView">ArcGIS API for JavaScript</a></p>
-    </div>
-    </div>
     <div id="viewDiv" class="esri-view esri-view-height-medium esri-view-height-greater-than-xsmall esri-view-height-greater-than-small esri-view-height-less-than-large esri-view-height-less-than-xlarge esri-view-width-xsmall esri-view-width-less-than-small esri-view-width-less-than-medium esri-view-width-less-than-large esri-view-width-less-than-xlarge esri-view-orientation-portrait"><div class="esri-view-root"><div class="esri-view-surface esri-view-surface--inset-outline esri-view-surface--touch-none" role="application" tabindex="0"><canvas style="width: 386px; height: 806px; display: block;" width="386" height="806" class=""></canvas></div><div class="esri-overlay-surface"><div style="visibility: hidden;"></div></div><div class="esri-ui" style="inset: 0px;"><div class="esri-ui-inner-container esri-ui-corner-container" style="inset: 15px 15px 30px;"><div class="esri-ui-top-left esri-ui-corner"><div class="esri-component esri-zoom esri-widget"><div class="esri-widget--button esri-widget esri-interactive" role="button" tabindex="0" title="Zoom in"><span aria-hidden="true" role="presentation" class="esri-icon esri-icon-plus"></span><span class="esri-icon-font-fallback-text">Zoom in</span></div><div class="esri-widget--button esri-widget esri-interactive" role="button" tabindex="0" title="Zoom out"><span aria-hidden="true" role="presentation" class="esri-icon esri-icon-minus"></span><span class="esri-icon-font-fallback-text">Zoom out</span></div></div><div class="esri-component esri-home esri-widget--button esri-widget" role="button" tabindex="0" aria-label="Default map view" title="Default map view"><span aria-hidden="true" class="esri-icon esri-icon-home"></span><span class="esri-icon-font-fallback-text">Home</span></div><div class="esri-component esri-compass esri-widget--button esri-widget esri-interactive" role="button" tabindex="0" aria-label="Reset compass orientation" title="Reset compass orientation"><span aria-hidden="true" class="esri-compass__icon esri-icon-compass" style="transform: rotateZ(0deg);"></span><span class="esri-icon-font-fallback-text">Reset compass orientation</span></div></div><div class="esri-ui-top-right esri-ui-corner"><div class="esri-component esri-expand esri-widget esri-expand--auto"><div class="esri-expand__mask"></div><div class="esri-expand__container"><div class="esri-expand__panel"><div aria-controls="17f0545e091-widget-1_controls_content" aria-expanded="false" title="Expand LayerList" role="button" tabindex="0" class="esri-widget--button"><span aria-hidden="true" class="esri-collapse__icon esri-icon-layers"></span><span class="esri-icon-font-fallback-text">Expand LayerList</span></div></div><div id="17f0545e091-widget-1_controls_content" role="region" class="esri-expand__content"><div class="esri-layer-list esri-widget esri-widget--panel"><ul aria-label="Layer List" data-node-ref="_sortableNode" class="esri-layer-list__list esri-layer-list__list--root esri-layer-list__list--independent"><li class="esri-layer-list__item esri-layer-list__item--has-children"><div class="esri-layer-list__item-container"><span class="esri-layer-list__child-toggle" tabindex="0" role="button" aria-controls="17f0545e091-widget-2_17f0545e08c-object-4__list" aria-label="Expand" title="Expand"><span aria-hidden="true" class="esri-layer-list__child-toggle-icon--closed esri-icon-right-triangle-arrow"></span><span aria-hidden="true" class="esri-layer-list__child-toggle-icon--opened esri-icon-down-arrow"></span><span aria-hidden="true" class="esri-layer-list__child-toggle-icon--closed-rtl esri-icon-left-triangle-arrow"></span></span><div class="esri-layer-list__item-label" tabindex="0" aria-checked="true" role="switch" aria-labelledby="17f0545e091-widget-2_17f0545e08c-object-4__title"><span class="esri-layer-list__item-toggle"><span class="esri-layer-list__item-toggle-icon esri-icon-visible" aria-hidden="true"></span></span><span id="17f0545e091-widget-2_17f0545e08c-object-4__title" title="65658050-7a80-4da3-9a09-da137c203a34" aria-label="65658050-7a80-4da3-9a09-da137c203a34" class="esri-layer-list__item-title">65658050-7a80-4da3-9a09-da137c203a34</span></div></div><ul id="17f0545e091-widget-2_17f0545e08c-object-4__list" class="esri-layer-list__list esri-layer-list__list--independent" aria-expanded="false" role="group" hidden=""><li class="esri-layer-list__item"><div class="esri-layer-list__item-container"><div class="esri-layer-list__item-label" data-parent-visibility="independent" tabindex="0" aria-checked="true" role="switch" aria-labelledby="17f0545e091-widget-2_17f0545e0eb-object-6__title"><span class="esri-layer-list__item-toggle"><span class="esri-layer-list__item-toggle-icon esri-icon-visible" aria-hidden="true"></span></span><span id="17f0545e091-widget-2_17f0545e0eb-object-6__title" title="NationalTornadoTracks_1980-2009" aria-label="NationalTornadoTracks_1980-2009" class="esri-layer-list__item-title">NationalTornadoTracks_1980-2009</span></div></div></li></ul></li></ul></div></div></div></div></div><div class="esri-ui-bottom-left esri-ui-corner"><div class="esri-component esri-expand esri-widget esri-expand--auto"><div class="esri-expand__mask"></div><div class="esri-expand__container"><div class="esri-expand__panel"><div aria-controls="17f0545e092-widget-3_controls_content" aria-expanded="false" title="Expand Legend" role="button" tabindex="0" class="esri-widget--button"><span aria-hidden="true" class="esri-collapse__icon esri-icon-layer-list"></span><span class="esri-icon-font-fallback-text">Expand Legend</span></div></div><div id="17f0545e092-widget-3_controls_content" role="region" class="esri-expand__content"><div class="esri-legend esri-widget--panel esri-widget"><div class="esri-legend__service"><h3 class="esri-widget__heading esri-legend__service-label">65658050-7a80-4da3-9a09-da137c203a34</h3><div class="esri-legend__layer"><div class="esri-legend__layer-table esri-legend__layer-table--size-ramp"><div class="esri-legend__layer-caption">NationalTornadoTracks_1980-2009</div><div class="esri-legend__layer-body"><div class="esri-legend__layer-row"><div class="esri-legend__layer-cell esri-legend__layer-cell--symbols"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAC9JREFUOI1jYaAyYBk1cNTAYWvgzGcM/6lhWLoUAyMLjEENAxkYhkwYjho4zA0EAMa8A9PA/z3vAAAAAElFTkSuQmCC" border="0" width="20" height="20" class="esri-legend__symbol" style="opacity: 1;"></div><div class="esri-legend__layer-cell esri-legend__layer-cell--info"></div></div></div></div></div></div></div></div></div></div></div><div class="esri-ui-bottom-right esri-ui-corner"><div class="esri-component esri-scale-bar esri-widget"><div class="esri-scale-bar__bar-container esri-scale-bar__bar-container--line"><div class="esri-scale-bar__line esri-scale-bar__line--top" style="width: 102px;"></div><div class="esri-scale-bar__label-container esri-scale-bar__label-container--line esri-scale-bar__label-container--top"><div class="esri-scale-bar__label">600 km</div></div></div><div class="esri-scale-bar__bar-container esri-scale-bar__bar-container--line"><div class="esri-scale-bar__line esri-scale-bar__line--bottom" style="width: 108px;"></div><div class="esri-scale-bar__label-container esri-scale-bar__label-container--line esri-scale-bar__label-container--bottom"><div class="esri-scale-bar__label">400 mi</div></div></div></div></div></div><div class="esri-ui-inner-container esri-ui-manual-container"><div class="esri-component esri-attribution esri-widget"><div class="esri-attribution__sources esri-interactive" tabindex="0" role="button"></div><div class="esri-attribution__powered-by">Powered by <a class="esri-attribution__link esri-widget__anchor" href="http://www.esri.com/" target="_blank" rel="noreferrer">Esri</a></div></div><div class="esri-component esri-popup" role="presentation"></div><div class="esri-component esri-spinner"></div></div></div></div><div class="esri-view-user-storage"></div></div>
   </body>
 </html>
