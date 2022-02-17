@@ -1,8 +1,16 @@
+<!--USE MONTREAL GEOJSON from last april (see zachmaps repository on github)
+Tutorials followed include...
+Adding GEOJSON - https://developers.arcgis.com/javascript/latest/sample-code/layers-geojson/
+Multiple Popup elements - https://developers.arcgis.com/javascript/latest/sample-code/popup-multipleelements/
+
+SOURCE: it must be stressed that the images in this map are not mine. They are originally from the renown Notman Collection, 
+scannned and made into a book by Bryan Demchinsky called Montreal Then and Now.
+images in this map are scanned copies of these original images, and the text descriptions as well come from Bryan Demchinsky. The 2021 images are my own as well as the added on information. I also was the creator of the original GEOJSON back in APril 2021 -->
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>ArcGIS API for JavaScript Tutorials: Add a point, line, and polygon</title>
+  <title>Montreal Then and Now</title>
   <style>
     html, body, #viewDiv {
       padding: 0;
@@ -14,7 +22,7 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.22/"></script>
   <script>
-
+<!--This is a basic map so not much is needed module wise.-->
   require([
     "esri/config",
     "esri/Map",
@@ -22,36 +30,38 @@
     "esri/views/MapView",
 
     ], function(esriConfig,Map, GeoJSONLayer, MapView) {
-  esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
+  esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc"; <!--API Key-->
+    <!--Creating variables to hold paths, making scripting easier -->
   const url = "./MTL_TAN.geojson"; 
   const url2 = "https://raw.githubusercontent.com/ZacharyMasson/zachmaps/main/data/static_image/";
   const path_test = url2+"{image1}"+'.png';
   const path_test2 = url2+"{image2}"+'.png';
   const path_test3 = url2+"{image3}"+'.png';  
+  <!--a template for the popups - takes info from geojson and enters it, as well as the image path-->
   const template = {
     title: "{name}",
     content: [ 
               {
                 type: "text",
-                text: "{desc1}{desc2}"// FieldsContentElement
+                text: "{desc1}"// Description field from geojson
               },
               {
                 type: "media", // MediaContentElement
                 mediaInfos: [
                   {
-                    title: "{year1}",
+                    title: "{year1}", // year field from geojson
                     type: "image",
                     value: {
                       sourceURL:
-                        path_test
+                        path_test // created path to hold the oldest image
                     }
                   },
                   {
-                    title: "{year2}",
+                    title: "{year2}", //year field from geojson
                     type: "image",
                     value: {
                       sourceURL:
-                        path_test2
+                        path_test2 // created path to hold second oldest image
                     }
                   },
                   {
@@ -59,33 +69,29 @@
                     type: "image",
                     value: {
                       sourceURL:
-                        path_test3
+                        path_test3 // created path to hold youngest image
                     }
                   },
                 ]
               },
               {
-                // You can set a attachment element(s) within the popup as well.
-                // Similar to text and media elements, attachments can only be set
-                // within the content. Any attachmentInfos associated with the feature
-                // will be listed in the popup.
                 type: "attachments" // AttachmentsContentElement
               }
             ]
     };
- 
+ <!--Ceating renderer to style the points. Using ID because everypoint has one, and i am aware of some missing data in this GEOJSON-->
   const renderer = {
     type: "simple",
     field: "id",
     symbol: {
       type: "simple-marker",
-      color: "orange",
+      color: "grey",
       outline: {
         color: "white"
       }
     },
   };
-
+<!--Actually creating the geojson with the popup template above-->
   const geojsonLayer = new GeoJSONLayer({
     url: url,
     popupTemplate: template,
@@ -94,17 +100,17 @@
       field: "id"
     }
   });
-
+<!--Creating map with basemap topographic-->
   const map = new Map({
     basemap: "arcgis-topographic",
     ground: "world-elevation",
     layers: [geojsonLayer]
   });
-
+<!--Creating map view with focused on Montreal-->
   const view = new MapView({
     container: "viewDiv",
     center: [-73.5743, 45.4992],
-    zoom: 2,
+    zoom: 6,
     map: map
   });
  });
