@@ -20,7 +20,9 @@
       "esri/config",
       "esri/Map",
       "esri/views/SceneView"
-  ], function(esriConfig,Map, SceneView) {
+      "esri/Graphic"
+      "esri/layers/GraphicsLayer"
+  ], function(esriConfig, Map, SceneView, Graphic, GraphicsLayer) {
 
     esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
 
@@ -40,7 +42,28 @@
         },
         tilt: 75
       }
-      });
+    });
+    const graphicsLayer = new GraphicsLayer();
+    map.add(graphicsLayer);
+      
+    const point = { //Create a point
+      type: "point",
+      longitude: -118.80657463861,
+      latitude: 34.0005930608889
+    };
+    const simpleMarkerSymbol = {
+      type: "simple-marker",
+      color: [226, 119, 40],  // Orange
+      outline: {
+          color: [255, 255, 255], // White
+          width: 1
+      }
+    };
+    const pointGraphic = new Graphic({
+      geometry: point,
+      symbol: simpleMarkerSymbol
+    });
+    graphicsLayer.add(pointGraphic);
 
     });
   </script>
