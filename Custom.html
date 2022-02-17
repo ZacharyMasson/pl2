@@ -72,10 +72,19 @@
     ]
  };
  const simpleLineSymbol = {
-    type: "simple-line",
-    color: [226, 119, 40], // Orange
-    width: 2
- };
+    type: "line-3d",
+    symbolLayers: [{
+      type: "path",
+      profile: "quad",
+      material: {
+        color: [100, 100, 100]
+      },
+      width: 5, // the width in m
+      height: 30, // the height in m
+      anchor: "bottom", // the vertical anchor is set to the lowest point of the wall
+      profileRotation: "heading"
+    }]
+  }
 
  const polylineGraphic = new Graphic({
     geometry: polyline,
