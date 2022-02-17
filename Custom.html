@@ -24,9 +24,10 @@
     ], function(esriConfig,Map, GeoJSONLayer, MapView) {
   esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
   const url = "./MTL_TAN.geojson"; 
+  const url2 = "https://github.com/ZacharyMasson/zachmaps/tree/main/data/static_image/"
   const template = {
-    title: "{name} (sdasdasd{year1})",
-    content: "{desc1}<p></p><img src='https://github.com/ZacharyMasson/zachmaps/tree/main/data/static_image/'+{image1}+'.png'>",
+    title: "{name} ({year1})",
+    content: "{desc1}<p></p><img src= url + {image1} + '.png'>",
     };
  
   const renderer = {
