@@ -27,6 +27,7 @@
   const url2 = "https://raw.githubusercontent.com/ZacharyMasson/zachmaps/main/data/static_image/";
   const path_test = url2+"{image1}"+'.png';
   const path_test2 = url2+"{image2}"+'.png';
+  const path_test3 = url2+"{image3}"+'.png';  
   const template = {
     title: "{name}",
     content: [ 
@@ -51,6 +52,14 @@
                     value: {
                       sourceURL:
                         path_test2
+                    }
+                  },
+                  {
+                    title: "{year3}",
+                    type: "image",
+                    value: {
+                      sourceURL:
+                        path_test3
                     }
                   },
                 ]
