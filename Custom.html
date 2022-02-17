@@ -19,26 +19,27 @@
     <script src="https://js.arcgis.com/4.22/"></script>
 
     <script>
-      require(["esri/config","esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], function (esriConfig,Map, MapView, FeatureLayer) {
 
-        esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
-
-        const map = new Map({
-          basemap: "arcgis-topographic" // Basemap layer service
-        });
-
+      require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/geometry/Extent",
+      "esri/layers/MapImageLayer"
+      ], (
+      Map, MapView, MapImageLayer
+      ) => {
+        const layer = new MapImageLayer({ url: "https://maps-cartes.ec.gc.ca/arcgis/rest/services/data/65658050-7a80-4da3-9a09-da137c203a34/MapServer" });
+        const map = new Map({ layers: [layer] });
         const view = new MapView({
-          map: map,
-          center: [-118.805, 34.027], // Longitude, latitude
-          zoom: 13, // Zoom level
-          container: "viewDiv" // Div element
+          container: "viewDiv",
+          map: map
         });
-        //Trails feature layer (lines)
-        const TornadoLayer = new FeatureLayer({
-          url: "https://maps-cartes.ec.gc.ca/arcgis/rest/services/data/65658050-7a80-4da3-9a09-da137c203a34/MapServer/0"
+        layer.when(() => {
+          const initialExtent = Extent.fromJSON(layer.sourceJSON.initialExtent);
+          view.goTo(initialExtent);
         });
-        map.add(trailsLayer, 0);
       });
+
     </script>
 
   </head>
