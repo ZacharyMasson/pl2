@@ -19,9 +19,9 @@
     "esri/config",
     "esri/Map",
     "esri/layers/GeoJSONLayer",
-    "esri/views/SceneView",
+    "esri/views/MapView",
 
-    ], function(esriConfig,Map, GeoJSONLayer, SceneView) {
+    ], function(esriConfig,Map, GeoJSONLayer, MapView) {
   esriConfig.apiKey = "AAPK931fef58b88c40e49511d90bf042320d_jeFiqy7dXQMrRLz0RKEWiiDtjGxvsAgW0hfSMo-uZjtBeC_mG8r83t5U0_Dqhnc";
   const url = "./MTL_TAN.geojson";  
   const template = {
@@ -56,18 +56,12 @@
     layers: [geojsonLayer]
   });
 
-  const view = new SceneView({
-      container: "viewDiv",
-      map: map,
-      camera: {
-        position: {
-          x: -73.5743, //Longitude
-          y: 45.4992, //Latitude
-          z: 2000 //Meters
-        },
-        tilt: 50
-      }
-      });
+  const view = new MapView({
+    container: "viewDiv",
+    center: [-73.5743, 45.4992],
+    zoom: 2,
+    map: map
+  });
  });
 </script>
 </head>
